@@ -28,7 +28,7 @@ requirements:
 test:
   requires:
     - pip
-    - m2-grep # [win]
+    - m2-grep  # [win]
   imports:
     - terminaltables
   commands:
