@@ -13,11 +13,12 @@ source:
 build:
   noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install .
+  script: {{ PYTHON }} -m pip install . --no-deps
 
 requirements:
   host:
     - pip
+    - poetry >=0.12
     - python >=2.7
   run:
     - colorama
@@ -27,10 +28,13 @@ requirements:
 test:
   requires:
     - pip
+    - m2-grep # [win]
   imports:
     - terminaltables
   commands:
     - pip check
+    - pip list
+    - pip list | grep -E "terminaltables\s+{{ version.replace(".", "\\.") }}"
 
 about:
   home: https://github.com/matthewdeanmartin/terminaltables
