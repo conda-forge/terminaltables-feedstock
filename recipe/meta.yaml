@@ -17,10 +17,11 @@ build:
 
 requirements:
   host:
+    - pip
     - python >=2.7
   run:
-    - python >=2.7
     - colorama
+    - python >=2.7
     - termcolor
 
 test:
