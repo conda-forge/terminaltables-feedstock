@@ -1,40 +1,41 @@
 {% set name = "terminaltables" %}
-{% set version = "3.1.0" %}
-{% set sha256 = 'f3eb0eb92e3833972ac36796293ca0906e998dc3be91fbe1f8615b331b853b81' %}
+{% set version = "3.1.7" %}
+
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/terminaltables-{{ version }}.tar.gz
+  sha256: 5dab2f33927c0a020b8011c81b92830ff9fd4ba701657da5d7bfdc41048360a6
 
 build:
-  noarch: python
   number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
-  build:
-    - python
-    - setuptools
+  host:
+    - python >=3.6
+    - pip
+    - poetry
   run:
-    - python
-    - colorama
-    - termcolor
+    - python >=3.6
 
 test:
   imports:
     - terminaltables
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://robpol86.github.io/terminaltables
   license: MIT
+  license_file: LICENSE
   license_family: MIT
-  # xref : https://github.com/Robpol86/terminaltables/pull/49
-  # license_file: LICENSE
   summary: Generate simple tables in terminals from a nested list of strings.
   doc_url: https://robpol86.github.io/terminaltables
   dev_url: https://github.com/Robpol86/terminaltables
