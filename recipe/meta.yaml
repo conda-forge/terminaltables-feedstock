@@ -1,44 +1,45 @@
-{% set name = "terminaltables" %}
-{% set version = "3.1.0" %}
-{% set sha256 = 'f3eb0eb92e3833972ac36796293ca0906e998dc3be91fbe1f8615b331b853b81' %}
+{% set version = "3.1.7" %}
 
 package:
-  name: {{ name|lower }}
+  name: terminaltables
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  - url: https://pypi.io/packages/source/t/terminaltables/terminaltables-{{ version }}.tar.gz
+    sha256: 5dab2f33927c0a020b8011c81b92830ff9fd4ba701657da5d7bfdc41048360a6
+  - url: https://raw.githubusercontent.com/matthewdeanmartin/terminaltables/master/LICENSE
+    sha256: 2e1320fd337db06a3136d0f4101bd62f13249c95c5b581304f35481e979d432a
 
 build:
   noarch: python
   number: 0
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  script: {{ PYTHON }} -m pip install .
 
 requirements:
-  build:
-    - python
-    - setuptools
+  host:
+    - python >=2.7
   run:
-    - python
+    - python >=2.7
     - colorama
     - termcolor
 
 test:
+  requires:
+    - pip
   imports:
     - terminaltables
+  commands:
+    - pip check
 
 about:
-  home: https://robpol86.github.io/terminaltables
+  home: https://github.com/matthewdeanmartin/terminaltables
   license: MIT
   license_family: MIT
   # xref : https://github.com/Robpol86/terminaltables/pull/49
-  # license_file: LICENSE
+  license_file: LICENSE
   summary: Generate simple tables in terminals from a nested list of strings.
-  doc_url: https://robpol86.github.io/terminaltables
-  dev_url: https://github.com/Robpol86/terminaltables
 
 extra:
   recipe-maintainers:
     - mariusvniekerk
+    - bollwyvl
